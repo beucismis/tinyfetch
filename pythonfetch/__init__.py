@@ -5,7 +5,7 @@ from colorama import Fore, Style
 
 
 __version__ = "0.1.0"
-__license__ = "GPL-3"
+__license__ = "GPL-3.0"
 __author__ = "Adil Gurbuz"
 __contact__ = "beucismis@tutamail.com"
 __source__ = "https://github.com/beucismis/pythonfetch"
