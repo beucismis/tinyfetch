@@ -17,7 +17,7 @@ Only GNU/Linux 🐧
 
 Install via `pip` (No auto-update):
 ```
-$ [sudo] pip3 install pythonfetch
+$ pip3 install --user pythonfetch
 ```
 
 ### Building the sources
