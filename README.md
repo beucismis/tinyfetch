@@ -17,7 +17,7 @@ Only GNU/Linux 🐧
 
 Install via `pip` (No auto-update):
 ```
-$ [sudo] pip3 install tkpick
+$ [sudo] pip3 install pythonfetch
 ```
 
 ### Building the sources
