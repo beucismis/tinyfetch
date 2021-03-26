@@ -4,7 +4,7 @@ import platform
 from colorama import Fore, Style
 
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __license__ = "GPL-3.0"
 __author__ = "Adil Gurbuz"
 __contact__ = "beucismis@tutamail.com"
