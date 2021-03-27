@@ -6,7 +6,7 @@ from colorama import Fore, Style
 from pip import __version__ as pip__version__
 
 
-__version__ = "0.1.1"
+__version__ = "0.2.1"
 __license__ = "GPL-3.0"
 __author__ = "Adil Gurbuz"
 __contact__ = "beucismis@tutamail.com"
