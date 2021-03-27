@@ -1,12 +1,14 @@
 import os
 import psutil
 import platform
+import subprocess
 from colorama import Fore, Style
 from subprocess import run, CalledProcessError
 import subprocess
 import re
+from pip import __version__ as pip__version__
 
-__version__ = "0.1.0"
+__version__ = "0.2.1"
 __license__ = "GPL-3.0"
 __author__ = "Adil Gurbuz"
 __contact__ = "beucismis@tutamail.com"
@@ -53,13 +55,18 @@ def get_processor_name():
                 return re.sub(".*model name.*:", "", line, 1)
     return ""
 
+  
+with open(os.path.join(this_dir, "data/ascii-art.txt")) as file:
+    ART = [SPACE + line.replace("\n", "") for line in file.readlines()]
+
 
 def red(text):
     return Fore.LIGHTRED_EX + text + Style.RESET_ALL
 
 
-with open(os.path.join(this_dir, "data/ascii-art.txt"), encoding="utf-8") as file:
-    ART = [SPACE + line[:-2] for line in file.readlines()]
+def exc(command):
+    sp = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
+    return sp.stdout.read().decode("utf-8").replace("\n", "")
 
 
 def render(info):
@@ -72,28 +79,20 @@ def main():
     mem = psutil.virtual_memory()
     mem_total = round(mem.total / 1048576)
     mem_used = round(mem.used / 1048576)
-
-    try:
-        p = run(["gcc", "--version"], capture_output=True)
-        # if you wanted, you could regex only the version
-        gcc_ver = p.stdout.decode().split("\n")[0]
-    except CalledProcessError:
-        gcc_ver = "no gcc found"
+    
+    gcc_ver = exc("gcc --version | grep gcc | awk '{print $4}'")
     python_ver = platform.python_version()
-    pip_ver = __import__("pip").__version__
-    try:
-        p = run(["pip3", "list"], capture_output=True)
-        # if you wanted, you could regex only the version
-        pip_packages = len(p.stdout.decode().split("\n"))
-    except CalledProcessError:
-        pip_packages = "could not find pip3"
+    pip_ver = pip__version__
+    pip_packages = exc("pip3 list | wc -l")
 
     userinfo = "{}{}{}".format(red(os.getlogin()), "@", red(uname.nodename))
     splitline = "═" * (len(os.getlogin()) + len(uname.nodename) + 1)
+
     gcc_ver = "{}: {}".format(red("gcc ver"), gcc_ver)
     python_ver = "{}: {}".format(red("python ver"), python_ver)
     pip_ver = "{}: {}".format(red("pip ver"), pip_ver)
     pip_packages = "{}: {}".format(red("pip packages"), pip_packages)
+
     os_ = "{}: {}".format(red("os"), uname.version)
     kernel = "{}: {}".format(red("kernel"), uname.release)
     cpu = "{}: {}".format(red("cpu"), get_processor_name())
