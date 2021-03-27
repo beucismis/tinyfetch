@@ -2,7 +2,9 @@ import os
 import psutil
 import platform
 from colorama import Fore, Style
-
+from subprocess import run, CalledProcessError
+import subprocess
+import re
 
 __version__ = "0.1.0"
 __license__ = "GPL-3.0"
@@ -36,6 +38,22 @@ B_COLORS = [
 ]
 
 
+def get_processor_name():
+    if platform.system() == "Windows":
+        return platform.processor()
+    elif platform.system() == "Darwin":
+        os.environ['PATH'] = os.environ['PATH'] + os.pathsep + '/usr/sbin'
+        command = "sysctl -n machdep.cpu.brand_string"
+        return subprocess.check_output(command).strip()
+    elif platform.system() == "Linux":
+        command = "cat /proc/cpuinfo"
+        all_info = subprocess.check_output(command, shell=True)
+        for line in all_info.decode().split("\n"):
+            if "model name" in line:
+                return re.sub(".*model name.*:", "", line, 1)
+    return ""
+
+
 def red(text):
     return Fore.LIGHTRED_EX + text + Style.RESET_ALL
 
@@ -55,10 +73,20 @@ def main():
     mem_total = round(mem.total / 1048576)
     mem_used = round(mem.used / 1048576)
 
-    gcc_ver = " "  # TODO: gcc --version | grep gcc
+    try:
+        p = run(["gcc", "--version"], capture_output=True)
+        # if you wanted, you could regex only the version
+        gcc_ver = p.stdout.decode().split("\n")[0]
+    except CalledProcessError:
+        gcc_ver = "no gcc found"
     python_ver = platform.python_version()
     pip_ver = __import__("pip").__version__
-    pip_packages = " "  # TODO: pip3 list | wc -l
+    try:
+        p = run(["pip3", "list"], capture_output=True)
+        # if you wanted, you could regex only the version
+        pip_packages = len(p.stdout.decode().split("\n"))
+    except CalledProcessError:
+        pip_packages = "could not find pip3"
 
     userinfo = "{}{}{}".format(red(os.getlogin()), "@", red(uname.nodename))
     splitline = "═" * (len(os.getlogin()) + len(uname.nodename) + 1)
@@ -68,7 +96,7 @@ def main():
     pip_packages = "{}: {}".format(red("pip packages"), pip_packages)
     os_ = "{}: {}".format(red("os"), uname.version)
     kernel = "{}: {}".format(red("kernel"), uname.release)
-    cpu = "{}: {}".format(red("cpu"), platform.processor())
+    cpu = "{}: {}".format(red("cpu"), get_processor_name())
     ram = "{}: {} / {} {}".format(red("ram"), mem_used, mem_total, "MiB")
 
     bright_colors = [color + "███" for color in B_COLORS]
