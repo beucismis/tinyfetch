@@ -1,12 +1,12 @@
 import os
+import re
 import psutil
 import platform
 import subprocess
 from colorama import Fore, Style
-from subprocess import run, CalledProcessError
-import subprocess
-import re
 from pip import __version__ as pip__version__
+from subprocess import run, CalledProcessError
+
 
 __version__ = "0.2.1"
 __license__ = "GPL-3.0"
@@ -43,19 +43,23 @@ B_COLORS = [
 def get_processor_name():
     if platform.system() == "Windows":
         return platform.processor()
+
     elif platform.system() == "Darwin":
-        os.environ['PATH'] = os.environ['PATH'] + os.pathsep + '/usr/sbin'
+        os.environ["PATH"] = os.environ["PATH"] + os.pathsep + "/usr/sbin"
         command = "sysctl -n machdep.cpu.brand_string"
         return subprocess.check_output(command).strip()
+
     elif platform.system() == "Linux":
         command = "cat /proc/cpuinfo"
         all_info = subprocess.check_output(command, shell=True)
+
         for line in all_info.decode().split("\n"):
             if "model name" in line:
                 return re.sub(".*model name.*:", "", line, 1)
+
     return ""
 
-  
+
 with open(os.path.join(this_dir, "data/ascii-art.txt")) as file:
     ART = [SPACE + line.replace("\n", "") for line in file.readlines()]
 
@@ -79,7 +83,7 @@ def main():
     mem = psutil.virtual_memory()
     mem_total = round(mem.total / 1048576)
     mem_used = round(mem.used / 1048576)
-    
+
     gcc_ver = exc("gcc --version | grep gcc | awk '{print $4}'")
     python_ver = platform.python_version()
     pip_ver = pip__version__
@@ -95,7 +99,7 @@ def main():
 
     os_ = "{}: {}".format(red("os"), uname.version)
     kernel = "{}: {}".format(red("kernel"), uname.release)
-    cpu = "{}: {}".format(red("cpu"), get_processor_name())
+    cpu = "{}: {}".format(red("cpu"), get_processor_name().strip())
     ram = "{}: {} / {} {}".format(red("ram"), mem_used, mem_total, "MiB")
 
     bright_colors = [color + "███" for color in B_COLORS]
