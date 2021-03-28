@@ -87,7 +87,9 @@ def main():
     gcc_ver = exc("gcc --version | grep gcc | awk '{print $4}'")
     python_ver = platform.python_version()
     pip_ver = pip__version__
-    pip_packages = exc("pip3 list | wc -l")
+    pip_packages = (
+        int(exc("pip3 list | wc -l")) - 2
+    )  # package and version title ignored
     os_ = exc("cat /etc/*release | grep PRETTY_NAME | cut -d= -f2 | tr -d '\"'")
 
     userinfo = "{}{}{}".format(red(os.getlogin()), "@", red(uname.nodename))
