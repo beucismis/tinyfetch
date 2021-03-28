@@ -8,7 +8,7 @@ from pip import __version__ as pip__version__
 from subprocess import run, CalledProcessError
 
 
-__version__ = "0.3.1"
+__version__ = "0.4.2"
 __license__ = "GPL-3.0"
 __author__ = "Adil Gurbuz"
 __contact__ = "beucismis@tutamail.com"
