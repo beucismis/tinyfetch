@@ -88,6 +88,7 @@ def main():
     python_ver = platform.python_version()
     pip_ver = pip__version__
     pip_packages = exc("pip3 list | wc -l")
+    os_ = exc("cat /etc/*release | grep PRETTY_NAME | cut -d= -f2 | tr -d '\"'")
 
     userinfo = "{}{}{}".format(red(os.getlogin()), "@", red(uname.nodename))
     splitline = "═" * (len(os.getlogin()) + len(uname.nodename) + 1)
@@ -97,7 +98,7 @@ def main():
     pip_ver = "{}: {}".format(red("pip ver"), pip_ver)
     pip_packages = "{}: {}".format(red("pip packages"), pip_packages)
 
-    os_ = "{}: {}".format(red("os"), uname.version)
+    os_ = "{}: {}".format(red("os"), os_ + SPACE + uname.machine)
     kernel = "{}: {}".format(red("kernel"), uname.release)
     cpu = "{}: {}".format(red("cpu"), get_processor_name().strip())
     ram = "{}: {} / {} {}".format(red("ram"), mem_used, mem_total, "MiB")
