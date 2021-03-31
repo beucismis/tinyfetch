@@ -44,6 +44,8 @@ $ python3 setup.py install
 ## Usage
 ```
 $ pythonfetch
+# or
+$ pyfetch
 ```
 
 ## License
