@@ -9,7 +9,7 @@ from subprocess import run, CalledProcessError
 from pip._internal.operations.freeze import freeze
 
 
-__version__ = "0.4.2"
+__version__ = "0.5.2"
 __license__ = "GPL-3.0"
 __author__ = "Adil Gurbuz"
 __contact__ = "beucismis@tutamail.com"
