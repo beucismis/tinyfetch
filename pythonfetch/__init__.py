@@ -9,7 +9,7 @@ from subprocess import run, CalledProcessError
 from pip._internal.operations.freeze import freeze
 
 
-__version__ = "0.5.2"
+__version__ = "0.6.2"
 __license__ = "GPL-3.0"
 __author__ = "Adil Gurbuz"
 __contact__ = "beucismis@tutamail.com"
@@ -92,7 +92,7 @@ def main():
     os_ = exc("cat /etc/*release | grep PRETTY_NAME | cut -d= -f2 | tr -d '\"'")
 
     userinfo = "{}{}{}".format(red(os.getlogin()), "@", red(uname.nodename))
-    splitline = "═" * (len(os.getlogin()) + len(uname.nodename) + 1)
+    splitline = "-" * (len(os.getlogin()) + len(uname.nodename) + 1)
 
     gcc_ver = "{}: {}".format(red("gcc ver"), gcc_ver)
     python_ver = "{}: {}".format(red("python ver"), python_ver)
