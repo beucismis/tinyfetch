@@ -6,6 +6,7 @@ import subprocess
 from colorama import Fore, Style
 from pip import __version__ as pip__version__
 from subprocess import run, CalledProcessError
+from pip._internal.operations.freeze import freeze
 
 
 __version__ = "0.4.2"
@@ -87,9 +88,7 @@ def main():
     gcc_ver = exc("gcc --version | grep gcc | awk '{print $4}'")
     python_ver = platform.python_version()
     pip_ver = pip__version__
-    pip_packages = (
-        int(exc("pip3 list | wc -l")) - 2
-    )  # package and version title ignored
+    pip_packages = package_count = sum(1 for p in freeze(local_only=True))
     os_ = exc("cat /etc/*release | grep PRETTY_NAME | cut -d= -f2 | tr -d '\"'")
 
     userinfo = "{}{}{}".format(red(os.getlogin()), "@", red(uname.nodename))
