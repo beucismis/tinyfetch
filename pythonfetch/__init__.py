@@ -9,7 +9,7 @@ from subprocess import run, CalledProcessError
 from pip._internal.operations.freeze import freeze
 
 
-__version__ = "0.6.2"
+__version__ = "0.7.2"
 __license__ = "GPL-3.0"
 __author__ = "Adil Gurbuz"
 __contact__ = "beucismis@tutamail.com"
@@ -76,7 +76,7 @@ def exc(command):
 
 def render(info):
     for (art_line, info_line) in zip(ART, info):
-        print("{}   {}".format(art_line, info_line))
+        print("{} {}".format(art_line, info_line))
 
 
 def main():
