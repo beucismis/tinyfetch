@@ -5,11 +5,10 @@ import platform
 import subprocess
 from colorama import Fore, Style
 from pip import __version__ as pip__version__
-from subprocess import run, CalledProcessError
 from pip._internal.operations.freeze import freeze
 
 
-__version__ = "0.7.2"
+__version__ = "0.8.2"
 __license__ = "GPL-3.0"
 __author__ = "Adil Gurbuz"
 __contact__ = "beucismis@tutamail.com"
@@ -85,24 +84,25 @@ def main():
     mem_total = round(mem.total / 1048576)
     mem_used = round(mem.used / 1048576)
 
-    gcc_ver = exc("gcc --version | grep gcc | awk '{print $4}'")
     python_ver = platform.python_version()
-    pip_ver = pip__version__
     pip_packages = package_count = sum(1 for p in freeze(local_only=True))
+    implementation = platform.python_implementation()
+    compiler = platform.python_compiler()
     os_ = exc("cat /etc/*release | grep PRETTY_NAME | cut -d= -f2 | tr -d '\"'")
 
     userinfo = "{}{}{}".format(red(os.getlogin()), "@", red(uname.nodename))
     splitline = "-" * (len(os.getlogin()) + len(uname.nodename) + 1)
 
-    gcc_ver = "{}: {}".format(red("gcc ver"), gcc_ver)
     python_ver = "{}: {}".format(red("python ver"), python_ver)
-    pip_ver = "{}: {}".format(red("pip ver"), pip_ver)
+    pip_ver = "{}: {}".format(red("pip ver"), pip__version__)
     pip_packages = "{}: {}".format(red("pip packages"), pip_packages)
+    implementation = "{}: {}".format(red("implementation"), implementation)
+    compiler = "{}: {}".format(red("compiler"), compiler)
 
     os_ = "{}: {}".format(red("os"), os_ + SPACE + uname.machine)
-    kernel = "{}: {}".format(red("kernel"), uname.release)
+    kernel = "{}: {}".format(red("kernel"), platform.platform())
     cpu = "{}: {}".format(red("cpu"), get_processor_name().strip())
-    ram = "{}: {} / {} {}".format(red("ram"), mem_used, mem_total, "MiB")
+    ram = "{0}: {1}{3} / {2}{3}".format(red("ram"), mem_used, mem_total, "MiB")
 
     bright_colors = [color + "███" for color in B_COLORS]
     dark_colors = [color + "███" for color in D_COLORS]
@@ -110,13 +110,13 @@ def main():
     render(
         [
             SPACE,
-            SPACE,
             userinfo,
             splitline,
-            gcc_ver,
             python_ver,
             pip_ver,
             pip_packages,
+            implementation,
+            compiler,
             os_,
             kernel,
             cpu,
