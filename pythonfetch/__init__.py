@@ -10,7 +10,7 @@ from pip import __version__ as pip__version__
 from pip._internal.operations.freeze import freeze
 
 
-__version__ = "0.8.2"
+__version__ = "0.10.3"
 __license__ = "GPL-3.0"
 __author__ = "Adil Gurbuz"
 __contact__ = "beucismis@tutamail.com"
