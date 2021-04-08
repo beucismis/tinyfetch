@@ -1,6 +1,7 @@
 import os
 import re
 import psutil
+import getpass
 import platform
 import subprocess
 from colorama import Fore, Style
@@ -90,8 +91,9 @@ def main():
     compiler = platform.python_compiler()
     os_ = exc("cat /etc/*release | grep PRETTY_NAME | cut -d= -f2 | tr -d '\"'")
 
-    userinfo = "{}{}{}".format(red(os.getlogin()), "@", red(uname.nodename))
-    splitline = "-" * (len(os.getlogin()) + len(uname.nodename) + 1)
+    # https://docs.python.org/3/library/getpass.html#getpass.getuser
+    userinfo = "{}{}{}".format(red(getpass.getuser()), "@", red(uname.nodename))
+    splitline = (len(getpass.getuser()) + len(uname.nodename) + 1) * "-"
 
     python_ver = "{}: {}".format(red("python ver"), python_ver)
     pip_ver = "{}: {}".format(red("pip ver"), pip__version__)
