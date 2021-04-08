@@ -111,7 +111,7 @@ def main():
     compiler = "{}: {}".format(red("compiler"), compiler)
 
     os_ = "{}: {}".format(red("os"), (get_os_name() + SPACE + uname.machine) or "")
-    kernel = "{}: {}".format(red("kernel"), platform.platform())
+    kernel = "{}: {}".format(red("kernel"), uname.sysname + "-" + uname.release)
     cpu = "{}: {}".format(red("cpu"), get_processor_name().strip())
     ram = "{0}: {1}{3} / {2}{3}".format(red("ram"), mem_used, mem_total, "MiB")
 
