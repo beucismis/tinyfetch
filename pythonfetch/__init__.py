@@ -4,6 +4,7 @@ import psutil
 import getpass
 import platform
 import subprocess
+from pathlib import Path
 from colorama import Fore, Style
 from pip import __version__ as pip__version__
 from pip._internal.operations.freeze import freeze
@@ -39,6 +40,15 @@ B_COLORS = [
     Fore.LIGHTBLACK_EX,
     Fore.LIGHTWHITE_EX,
 ]
+DISTRO_NAME_RE = re.compile('^PRETTY_NAME="([^"]+)"$')
+
+
+def get_os_name():
+    for p in Path("/").glob("etc/*release"):
+        with p.open() as fptr:
+            for line in fptr:
+                if (match := DISTRO_NAME_RE.match(line)) :
+                    return match.group(1)
 
 
 def get_processor_name():
@@ -89,7 +99,6 @@ def main():
     pip_packages = package_count = sum(1 for p in freeze(local_only=True))
     implementation = platform.python_implementation()
     compiler = platform.python_compiler()
-    os_ = exc("cat /etc/*release | grep PRETTY_NAME | cut -d= -f2 | tr -d '\"'")
 
     # https://docs.python.org/3/library/getpass.html#getpass.getuser
     userinfo = "{}{}{}".format(red(getpass.getuser()), "@", red(uname.nodename))
@@ -101,7 +110,7 @@ def main():
     implementation = "{}: {}".format(red("implementation"), implementation)
     compiler = "{}: {}".format(red("compiler"), compiler)
 
-    os_ = "{}: {}".format(red("os"), os_ + SPACE + uname.machine)
+    os_ = "{}: {}".format(red("os"), (get_os_name() + SPACE + uname.machine) or "")
     kernel = "{}: {}".format(red("kernel"), platform.platform())
     cpu = "{}: {}".format(red("cpu"), get_processor_name().strip())
     ram = "{0}: {1}{3} / {2}{3}".format(red("ram"), mem_used, mem_total, "MiB")
