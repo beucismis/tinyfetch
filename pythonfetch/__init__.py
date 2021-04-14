@@ -10,7 +10,7 @@ from pip import __version__ as pip__version__
 from pip._internal.operations.freeze import freeze
 
 
-__version__ = "0.10.3"
+__version__ = "0.10.4"
 __license__ = "GPL-3.0"
 __author__ = "Adil Gurbuz"
 __contact__ = "beucismis@tutamail.com"
@@ -110,7 +110,8 @@ def main():
     implementation = "{}: {}".format(red("implementation"), implementation)
     compiler = "{}: {}".format(red("compiler"), compiler)
 
-    os_ = "{}: {}".format(red("os"), (get_os_name() + SPACE + uname.machine) or "")
+    os_ = "{} {}".format(get_os_name(), uname.machine)
+    os_ = "{}: {}".format(red("os"), os_ if get_os_name() != str() or None else SPACE)
     kernel = "{}: {}".format(red("kernel"), uname.sysname + "-" + uname.release)
     cpu = "{}: {}".format(red("cpu"), get_processor_name().strip())
     ram = "{0}: {1}{3} / {2}{3}".format(red("ram"), mem_used, mem_total, "MiB")
