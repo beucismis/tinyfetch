@@ -8,7 +8,19 @@
 
 Python and system information command-line tool
 
-![screenshot.png](screenshot.png)
+<table>
+<tr>
+<td>
+<img src="screenshots/screenshot-1.png"/>
+</td>
+<td>
+<img src="screenshots/screenshot-2.png"/>
+</td>
+<td>
+<img src="screenshots/screenshot-3.png"/>
+</td>
+</tr>
+</table>
 
 ### Availability
 Only GNU/Linux 🐧
