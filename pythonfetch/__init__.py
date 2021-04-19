@@ -1,16 +1,19 @@
 import os
 import re
+import time
 import psutil
 import getpass
 import platform
+import humanize
 import subprocess
 from pathlib import Path
+from datetime import datetime
 from colorama import Fore, Style
 from pip import __version__ as pip__version__
 from pip._internal.operations.freeze import freeze
 
 
-__version__ = "0.10.4"
+__version__ = "0.11.4"
 __license__ = "GPL-3.0"
 __author__ = "Adil Gurbuz"
 __contact__ = "beucismis@tutamail.com"
@@ -94,6 +97,7 @@ def main():
     mem = psutil.virtual_memory()
     mem_total = round(mem.total / 1048576)
     mem_used = round(mem.used / 1048576)
+    uptime = time.time() - psutil.boot_time()
 
     python_ver = platform.python_version()
     pip_packages = package_count = sum(1 for p in freeze(local_only=True))
@@ -110,6 +114,7 @@ def main():
     implementation = "{}: {}".format(red("implementation"), implementation)
     compiler = "{}: {}".format(red("compiler"), compiler)
 
+    uptime = "{}: {}".format(red("uptime"), humanize.precisedelta(uptime))
     os_ = "{} {}".format(get_os_name(), uname.machine)
     os_ = "{}: {}".format(red("os"), os_ if get_os_name() != str() or None else SPACE)
     kernel = "{}: {}".format(red("kernel"), uname.sysname + "-" + uname.release)
@@ -129,6 +134,7 @@ def main():
             pip_packages,
             implementation,
             compiler,
+            uptime,
             os_,
             kernel,
             cpu,
@@ -136,7 +142,6 @@ def main():
             SPACE,
             "".join(bright_colors) + Style.RESET_ALL,
             "".join(dark_colors) + Style.RESET_ALL,
-            SPACE,
             SPACE,
         ]
     )
