@@ -40,7 +40,7 @@ setuptools.setup(
     ],
     platforms=["Linux"],
     python_requires=">=3.5",
-    install_requires=["psutil", "colorama"],
+    install_requires=["psutil", "colorama", "humanize"],
     keywords=["pyfetch pythonfetch information command-line tool"],
     package_data={"pythonfetch": ["data/ascii-art.txt", "data/blocks-art.txt"]},
     entry_points={
