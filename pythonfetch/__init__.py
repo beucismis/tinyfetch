@@ -12,7 +12,7 @@ from pip import __version__ as pip__version__
 from pip._internal.operations.freeze import freeze
 
 
-__version__ = "0.11.5"
+__version__ = "0.11.6"
 __license__ = "GPL-3.0"
 __author__ = "Adil Gurbuz"
 __contact__ = "beucismis@tutamail.com"
@@ -49,7 +49,8 @@ def get_os_name():
     for p in Path("/").glob("etc/*release"):
         with p.open() as fptr:
             for line in fptr:
-                if (match := DISTRO_NAME_RE.match(line)) :
+                match = DISTRO_NAME_RE.match(line)
+                if match:
                     return match.group(1)
 
 
