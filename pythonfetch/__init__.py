@@ -95,7 +95,7 @@ def main():
     uptime = time() - psutil.boot_time()
 
     python_ver = platform.python_version()
-    pip_packages = package_count = sum(1 for p in freeze(local_only=True))
+    pip_packages = sum(1 for p in freeze(local_only=True))
     implementation = platform.python_implementation()
     compiler = platform.python_compiler()
 
@@ -103,8 +103,8 @@ def main():
     userinfo = "{}{}{}".format(red(getpass.getuser()), "@", red(uname.nodename))
     splitline = (len(getpass.getuser()) + len(uname.nodename) + 1) * "-"
 
-    python_ver = "{}: {}".format(red("python ver"), python_ver)
-    pip_ver = "{}: {}".format(red("pip ver"), pip__version__)
+    python_ver = "{}: {}".format(red("python version"), python_ver)
+    pip_ver = "{}: {}".format(red("pip version"), pip__version__)
     pip_packages = "{}: {}".format(red("pip packages"), pip_packages)
     implementation = "{}: {}".format(red("implementation"), implementation)
     compiler = "{}: {}".format(red("compiler"), compiler)
