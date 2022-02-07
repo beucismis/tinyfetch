@@ -8,19 +8,7 @@
 
 Python and system information command-line tool
 
-<table>
-<tr>
-<td>
-<img src="screenshots/screenshot-1.png"/>
-</td>
-<td>
-<img src="screenshots/screenshot-2.png"/>
-</td>
-<td>
-<img src="screenshots/screenshot-3.png"/>
-</td>
-</tr>
-</table>
+![2022-02-07_22-19](https://user-images.githubusercontent.com/40023234/152856842-565e45c2-15f5-4cea-95d4-8056373e89e5.png)
 
 ### Availability
 Only GNU/Linux 🐧
