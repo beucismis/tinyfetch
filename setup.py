@@ -41,7 +41,6 @@ setuptools.setup(
     platforms=["Linux"],
     python_requires=">=3.5",
     keywords=["pyfetch pythonfetch information command-line tool"],
-    package_data={"pythonfetch": ["data/ascii-art.txt"]},
     entry_points={
         "console_scripts": [
             "pyfetch = pythonfetch:main",
