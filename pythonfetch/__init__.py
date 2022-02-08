@@ -102,13 +102,6 @@ def main():
         os_info = f"{get_linux_os_name()} {uname.machiene}" if get_linux_os_name() != str() or None else SPACE
         operating_system = f"{red('OS')}: {os_info}"
 
-    elif os_type == "Darwin":
-        print("mac isnt supported yet")
-        return
-    elif os_type == "":
-        print("os type couldnt be determined")
-        return
-
     # information on python
     python_version = f"{red('Python Version')}: {platform.python_version()}"
     pip_version = f"{red('PIP Version')}: {pip__version__}"
