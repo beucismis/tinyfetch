@@ -1,8 +1,5 @@
 # pythonfetch
 ![](https://img.shields.io/badge/python-3.5%2B-blue)
-![](https://img.shields.io/pypi/v/pythonfetch)
-![](https://img.shields.io/pypi/l/pythonfetch)
-![](https://img.shields.io/pypi/dm/pythonfetch)
 ![](https://img.shields.io/badge/style-black-black)
 
 Python and system information command-line tool with pure Python. Neofetch like but Python oriented. It is fast and tiny.
