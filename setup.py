@@ -4,7 +4,7 @@ import pythonfetch as pf
 from os import name as os_name
 
 
-if os_name != "posix":
+if os_name != "posix" or "nt":
     raise OSError(f"Unsported OS: {os_name}")
 
 if sys.version_info < (3, 5):
