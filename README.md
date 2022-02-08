@@ -19,7 +19,7 @@ Python and system information command-line tool with pure Python. Neofetch like 
 - Shows compile and compiler version
 - Show kernel and operation system
 - Also light and dark color pallate
-- Only Linux/Windows
+- Only GNU/Linux and Windows
 
 ## Installing and Usage
 Install via `pip` (No auto-update):
