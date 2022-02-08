@@ -1,3 +1,4 @@
+from cmath import inf
 import os
 import re
 import getpass
@@ -64,6 +65,14 @@ def red(text):
 
 
 def render(info, ascii_logo):
+    if len(ascii_logo) < len(info):
+        for _ in range(len(info) - len(ascii_logo)):
+            ascii_logo.append(SPACE * len(ascii_logo[0]))
+    elif len(ascii_logo) > len(info):
+        for _ in range(len(ascii_logo) - len(info)):
+            info.append(SPACE)
+
+
     for (art_line, info_line) in zip(ascii_logo, info):
         print("{} {}".format(art_line, info_line))
 
@@ -113,24 +122,24 @@ def main():
 
 
     render(
-            [
-                SPACE,
-                userinfo,
-                splitline,
-                python_version,
-                pip_version,
-                pip_packages,
-                implementation,
-                compiler,
-                SPACE,
-                kernel,
-                operating_system,
-                SPACE,
-                "".join(dark_colors) + RESET,
-                "".join(bright_colors) + RESET,
-                SPACE,
-            ],
-            ASCII_LOGO,
+        [
+            SPACE,
+            userinfo,
+            splitline,
+            python_version,
+            pip_version,
+            pip_packages,
+            implementation,
+            compiler,
+            SPACE,
+            kernel,
+            operating_system,
+            SPACE,
+            "".join(dark_colors) + RESET,
+            "".join(bright_colors) + RESET,
+            SPACE,
+        ],
+        ASCII_LOGO,
     )
 
 
