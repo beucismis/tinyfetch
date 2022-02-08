@@ -98,7 +98,7 @@ def main():
 
         # information on the os
         kernel = f"{red('Kernel')}: {uname.sysname}-{uname.release}"
-        os_info = f"{get_linux_os_name()} {uname.machiene}" if get_linux_os_name() != str() or None else SPACE
+        os_info = f"{get_linux_os_name()} {uname.machine}" if get_linux_os_name() != str() or None else SPACE
         operating_system = f"{red('OS')}: {os_info}"
 
     # information on python
