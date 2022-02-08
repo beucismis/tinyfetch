@@ -24,7 +24,7 @@ Python and system information command-line tool with pure Python. Neofetch like 
 ## Installing and Usage
 Install via `pip` (No auto-update):
 ```
-pip3 install --user pythonfetch
+pip3 install --user git+https://github.com/beucismis/pythonfetch
 ```
 Execute by entering `pyfetch` or `pythonfetch` in the terminal.
 
