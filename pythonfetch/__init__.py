@@ -2,6 +2,7 @@ import os
 import re
 import getpass
 import platform
+import socket
 from pathlib import Path
 from pip import __version__ as pip__version__
 from pip._internal.operations.freeze import freeze
@@ -49,7 +50,7 @@ ASCII_LOGO = [
 DISTRO_NAME_RE = re.compile('^PRETTY_NAME="([^"]+)"$')
 
 
-def get_os_name():
+def get_linux_os_name():
     for p in Path("/").glob("etc/*release"):
         with p.open() as fptr:
             for line in fptr:
@@ -63,36 +64,54 @@ def red(text):
 
 
 def render(info, ascii_logo):
+    if len(ascii_logo) < len(info):
+        for _ in range(len(info) - len(ascii_logo)):
+            ascii_logo.append(SPACE * len(ascii_logo[0]))
+    elif len(ascii_logo) > len(info):
+        for _ in range(len(ascii_logo) - len(info)):
+            info.append(SPACE)
+
+
     for (art_line, info_line) in zip(ascii_logo, info):
         print("{} {}".format(art_line, info_line))
 
 
 def main():
-    uname = os.uname()
-    # https://docs.python.org/3/library/getpass.html#getpass.getuser
-    userinfo = "{}{}{}".format(red(getpass.getuser()), "@", red(uname.nodename))
-    splitline = (len(getpass.getuser()) + len(uname.nodename) + 1) * "-"
+    os_type = platform.system()
+    if os_type == "Windows":
 
-    python_version = "{}: {}".format(red("Python Version"), platform.python_version())
-    pip_version = "{}: {}".format(red("PIP Version"), pip__version__)
-    pip_packages = "{}: {}".format(
-        red("PIP Packages"), sum(1 for p in freeze(local_only=True))
-    )
-    implementation = "{}: {}".format(
-        red("Implementation"), platform.python_implementation()
-    )
-    compiler = "{}: {}".format(red("Compiler"), platform.python_compiler())
+        # https://docs.python.org/3/library/getpass.html#getpass.getuser
+        userinfo = f"{red(getpass.getuser())}@{red(socket.gethostname())}"
+        splitline = (len(getpass.getuser()) + len(socket.gethostname()) + 1) * "─"
+        
+        # information on the os
+        kernel = f"{red('Kernel')}:"
+        os_info = f"Windows {platform.version()}"
+        operating_system = f"{red('OS')}: {os_info}"
 
-    operation_system = "{}: {}".format(
-        red("OS"),
-        "{} {}".format(get_os_name(), uname.machine)
-        if get_os_name() != str() or None
-        else SPACE,
-    )
-    kernel = "{}: {}".format(red("Kernel"), uname.sysname + "-" + uname.release)
+    elif os_type == "Linux":
+
+        uname = os.uname()
+        # https://docs.python.org/3/library/getpass.html#getpass.getuser
+        userinfo = f"{red(getpass.getuser())}@{red(uname.nodename)}"
+        splitline = (len(getpass.getuser()) + len(uname.nodename) + 1) * "─"
+
+        # information on the os
+        kernel = f"{red('Kernel')}: {uname.sysname}-{uname.release}"
+        os_info = f"{get_linux_os_name()} {uname.machine}" if get_linux_os_name() != str() or None else SPACE
+        operating_system = f"{red('OS')}: {os_info}"
+
+    # information on python
+    python_version = f"{red('Python Version')}: {platform.python_version()}"
+    pip_version = f"{red('PIP Version')}: {pip__version__}"
+    pip_packages = f"{red('PIP Packages')}: {sum(1 for p in freeze(local_only=True))}"
+    implementation = f"{red('Implementation')}: {platform.python_implementation()}"
+    compiler = f"{red('Compiler')}: {platform.python_compiler()}"
 
     bright_colors = [color + "███" for color in B_COLORS]
     dark_colors = [color + "███" for color in D_COLORS]
+    
+
 
     render(
         [
@@ -106,7 +125,7 @@ def main():
             compiler,
             SPACE,
             kernel,
-            operation_system,
+            operating_system,
             SPACE,
             "".join(dark_colors) + RESET,
             "".join(bright_colors) + RESET,
@@ -114,6 +133,7 @@ def main():
         ],
         ASCII_LOGO,
     )
+
 
 
 if __name__ == "__main__":
