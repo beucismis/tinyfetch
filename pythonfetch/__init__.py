@@ -1,14 +1,14 @@
 import os
 import re
+import socket
 import getpass
 import platform
-import socket
 from pathlib import Path
 from pip import __version__ as pip__version__
 from pip._internal.operations.freeze import freeze
 
 
-__version__ = "0.13.0"
+__version__ = "0.14.0"
 __license__ = "GPL-3.0"
 __author__ = "Adil Gürbüz"
 __contact__ = "beucismis@tutamail.com"
@@ -50,27 +50,27 @@ ASCII_LOGO = [
 DISTRO_NAME_RE = re.compile('^PRETTY_NAME="([^"]+)"$')
 
 
-def get_linux_os_name():
-    for p in Path("/").glob("etc/*release"):
-        with p.open() as fptr:
-            for line in fptr:
-                match = DISTRO_NAME_RE.match(line)
-                if match:
-                    return match.group(1)
-
-
 def red(text):
     return BOLD + RED + text + RESET
+
+
+def get_linux_os_name():
+    for p in Path("/").glob("etc/*release"):
+        with p.open() as file:
+            match = [DISTRO_NAME_RE.match(l) for l in file.readlines()][0]
+
+        if match:
+            return match.group(1) if match.group(1) != "" or None else SPACE
 
 
 def render(info, ascii_logo):
     if len(ascii_logo) < len(info):
         for _ in range(len(info) - len(ascii_logo)):
             ascii_logo.append(SPACE * len(ascii_logo[0]))
+
     elif len(ascii_logo) > len(info):
         for _ in range(len(ascii_logo) - len(info)):
             info.append(SPACE)
-
 
     for (art_line, info_line) in zip(ascii_logo, info):
         print("{} {}".format(art_line, info_line))
@@ -78,19 +78,17 @@ def render(info, ascii_logo):
 
 def main():
     os_type = platform.system()
-    if os_type == "Windows":
 
+    if os_type == "Windows":
         # https://docs.python.org/3/library/getpass.html#getpass.getuser
         userinfo = f"{red(getpass.getuser())}@{red(socket.gethostname())}"
         splitline = (len(getpass.getuser()) + len(socket.gethostname()) + 1) * "─"
-        
+
         # information on the os
         kernel = f"{red('Kernel')}:"
-        os_info = f"Windows {platform.version()}"
-        operating_system = f"{red('OS')}: {os_info}"
+        operating_system = f"{red('OS')}: Windows {platform.version()}"
 
     elif os_type == "Linux":
-
         uname = os.uname()
         # https://docs.python.org/3/library/getpass.html#getpass.getuser
         userinfo = f"{red(getpass.getuser())}@{red(uname.nodename)}"
@@ -98,8 +96,7 @@ def main():
 
         # information on the os
         kernel = f"{red('Kernel')}: {uname.sysname}-{uname.release}"
-        os_info = f"{get_linux_os_name()} {uname.machine}" if get_linux_os_name() != str() or None else SPACE
-        operating_system = f"{red('OS')}: {os_info}"
+        operating_system = f"{red('OS')}: {get_linux_os_name()} {uname.machine}"
 
     # information on python
     python_version = f"{red('Python Version')}: {platform.python_version()}"
@@ -110,8 +107,6 @@ def main():
 
     bright_colors = [color + "███" for color in B_COLORS]
     dark_colors = [color + "███" for color in D_COLORS]
-    
-
 
     render(
         [
@@ -133,7 +128,6 @@ def main():
         ],
         ASCII_LOGO,
     )
-
 
 
 if __name__ == "__main__":
