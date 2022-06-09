@@ -98,6 +98,19 @@ def main():
         kernel = f"{red('Kernel')}: {uname.sysname}-{uname.release}"
         operating_system = f"{red('OS')}: {get_linux_os_name()} {uname.machine}"
 
+    elif os_type == "Darwin":  # darwin refers to mac os
+        # os.uname method can be used however the bash env variable is used
+        # instead to accomodate for the user altering their hostname variable
+        hostname = os.environ["HOSTNAME"]
+        userinfo = f"{red(getpass.getuser())}@{red(hostname)}"
+        splitline = (len(getpass.getuser()) + len(hostname) + 1) * "─"
+
+        #information on the os
+        uname = os.uname()
+        version = platform.mac_ver()[0]
+        kernel = f"{red('Kernel')}: {uname.sysname}-{uname.release}"
+        operating_system = f"{red('OS')}: Mac OS X {version} {uname.machine}"
+
     # information on python
     python_version = f"{red('Python Version')}: {platform.python_version()}"
     pip_version = f"{red('PIP Version')}: {pip__version__}"
