@@ -38,7 +38,7 @@ setuptools.setup(
         "Programming Language :: Python :: 3.9",
         "Topic :: Software Development :: Version Control",
     ],
-    platforms=["Linux", "Windows"],
+    platforms=["Linux", "Windows", "MAC OS X"],
     python_requires=">=3.5",
     keywords=["pyfetch pythonfetch information command-line tool"],
     entry_points={
