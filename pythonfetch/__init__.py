@@ -80,8 +80,15 @@ def main():
 
     if os_type == "Windows":
         # https://docs.python.org/3/library/getpass.html#getpass.getuser
-        userinfo = f"{red(getpass.getuser())}@{red(socket.gethostname())}"
-        splitline = (len(getpass.getuser()) + len(socket.gethostname()) + 1) * "─"
+        userinfo = (
+            f"{red(getpass.getuser())}@"
+            f"{red(socket.gethostname())}"
+        )
+        splitline = (
+            (len(getpass.getuser())
+            + len(socket.gethostname()) + 1)
+            * "─"
+        )
 
         # information on the os
         kernel = f"{red('Kernel')}:"
@@ -90,12 +97,23 @@ def main():
     elif os_type == "Linux":
         uname = os.uname()
         # https://docs.python.org/3/library/getpass.html#getpass.getuser
-        userinfo = f"{red(getpass.getuser())}@{red(uname.nodename)}"
-        splitline = (len(getpass.getuser()) + len(uname.nodename) + 1) * "─"
+        userinfo = (
+            f"{red(getpass.getuser())}@"
+            f"{red(uname.nodename)}"
+        )
+        splitline = (
+            (len(getpass.getuser())
+             + len(
+                 uname.nodename) + 1)
+            * "─"
+        )
 
         # information on the os
         kernel = f"{red('Kernel')}: {uname.sysname}-{uname.release}"
-        operating_system = f"{red('OS')}: {get_linux_os_name()} {uname.machine}"
+        operating_system = (
+            f"{red('OS')}: {get_linux_os_name()}"
+            f"{uname.machine}"
+        )
 
     elif os_type == "Darwin":  # darwin refers to mac os
         # os.uname method can be used however the bash env variable is used
@@ -104,7 +122,7 @@ def main():
         userinfo = f"{red(getpass.getuser())}@{red(hostname)}"
         splitline = (len(getpass.getuser()) + len(hostname) + 1) * "─"
 
-        #information on the os
+        # information on the os
         uname = os.uname()
         version = platform.mac_ver()[0]
         kernel = f"{red('Kernel')}: {uname.sysname}-{uname.release}"
@@ -113,8 +131,14 @@ def main():
     # information on python
     python_version = f"{red('Python Version')}: {platform.python_version()}"
     pip_version = f"{red('PIP Version')}: {pip__version__}"
-    pip_packages = f"{red('PIP Packages')}: {sum(1 for p in freeze(local_only=True))}"
-    implementation = f"{red('Implementation')}: {platform.python_implementation()}"
+    pip_packages = (
+        f"{red('PIP Packages')}:
+        f{sum(1 for p in freeze(local_only=True))}"
+    )
+    implementation = (
+        f"{red('Implementation')}:"
+        f"{platform.python_implementation()}"
+    )
     compiler = f"{red('Compiler')}: {platform.python_compiler()}"
 
     bright_colors = [color + "███" for color in B_COLORS]
