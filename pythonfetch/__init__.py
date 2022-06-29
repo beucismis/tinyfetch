@@ -132,8 +132,8 @@ def main():
     python_version = f"{red('Python Version')}: {platform.python_version()}"
     pip_version = f"{red('PIP Version')}: {pip__version__}"
     pip_packages = (
-        f"{red('PIP Packages')}:
-        f{sum(1 for p in freeze(local_only=True))}"
+        f"{red('PIP Packages')}:"
+        f"{sum(1 for p in freeze(local_only=True))}"
     )
     implementation = (
         f"{red('Implementation')}:"
