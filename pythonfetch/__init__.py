@@ -57,9 +57,9 @@ def red(text):
 
 def get_linux_os_name():
     # https://distro.readthedocs.io/en/latest/#distro.name
-    name = name()
-    version = version()
-    return f"{name} {version}"
+    distro_name = name()
+    distro_version = version()
+    return f"{distro_name} {distro_version}"
 
 
 def render(info, ascii_logo):
