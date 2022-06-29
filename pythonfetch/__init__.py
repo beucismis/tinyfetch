@@ -111,7 +111,7 @@ def main():
         # information on the os
         kernel = f"{red('Kernel')}: {uname.sysname}-{uname.release}"
         operating_system = (
-            f"{red('OS')}: {get_linux_os_name()}"
+            f"{red('OS')}: {get_linux_os_name()} "
             f"{uname.machine}"
         )
 
