@@ -6,6 +6,7 @@ import platform
 from pathlib import Path
 from pip import __version__ as pip__version__
 from pip._internal.operations.freeze import freeze
+from distro import name, version
 
 
 __version__ = "0.14.0"
@@ -55,12 +56,10 @@ def red(text):
 
 
 def get_linux_os_name():
-    for p in Path("/").glob("etc/*release"):
-        with p.open() as file:
-            match = [DISTRO_NAME_RE.match(l) for l in file.readlines()][0]
-
-        if match:
-            return match.group(1) if match.group(1) != "" or None else SPACE
+    # https://distro.readthedocs.io/en/latest/#distro.name
+    name = name()
+    version = version()
+    return f"{name} {version}"
 
 
 def render(info, ascii_logo):
