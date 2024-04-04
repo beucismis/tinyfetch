@@ -1,29 +1,13 @@
-# pythonfetch
-![](https://img.shields.io/badge/python-3.5%2B-blue)
-![](https://img.shields.io/badge/style-black-black)
+# tinyfetch
 
-Python and system information command-line tool with pure Python. Neofetch like but Python oriented. It is fast and tiny.
+Python and system information command-line fetch tool.
 
-## Screenshot
-![Screenshot_2022-02-08_01-34-52](https://user-images.githubusercontent.com/40023234/152883708-b5eb4ca4-a3e5-47cb-92e7-da1a1e3cbf68.png)
+## Installation
 
-
-## Features
-- Shows Python version
-- Shows PIP version
-- Shows PIP package count of installed
-- Shows implementation
-- Shows compile and compiler version
-- Show kernel and operation system
-- Also light and dark color pallate
-- GNU/Linux, Windows and MacOS support
-
-## Installing and Usage
-Install via `pip` (No auto-update):
+```console
+pip install tinyfetch
 ```
-pip3 install --user git+https://github.com/beucismis/pythonfetch
-```
-Execute by entering `pyfetch` or `pythonfetch` in the terminal.
 
 ## License
-This project is licensed under the GPL-3.0 - see the [LICENSE](LICENSE) file for details.
+
+`tinyfetch` is distributed under the terms of the [MIT](LICENSE.txt) license.

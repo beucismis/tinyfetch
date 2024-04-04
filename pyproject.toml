@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tinyfetch"
+dynamic = ["version"]
+description = "Python and system information command-line fetch tool"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "beucismis", email = "beucismis@tutamail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = []
+
+[project.urls]
+Source = "https://github.com/beucismis/tinyfetch"
+Issues = "https://github.com/beucismis/tinyfetch/issues"
+Documentation = "https://github.com/beucismis/tinyfetch#readme"
+
+[tool.hatch.version]
+path = "src/tinyfetch/__init__.py"
+
+[tool.hatch.envs.default]
+dependencies = ["pytest"]
+
+[tool.hatch.envs.default.scripts]
+test = "pytest tests/* -v"
+
+[[tool.hatch.envs.all.matrix]]
+python = ["3.8", "3.9", "3.10", "3.11", "3.12"]
