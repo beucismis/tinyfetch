@@ -31,6 +31,9 @@ Source = "https://github.com/beucismis/tinyfetch"
 Issues = "https://github.com/beucismis/tinyfetch/issues"
 Documentation = "https://github.com/beucismis/tinyfetch#readme"
 
+[project.scripts]
+tinyfetch = "tinyfetch.cli:main"
+
 [tool.hatch.version]
 path = "src/tinyfetch/__init__.py"
 
