@@ -1,13 +1,13 @@
+import csv
 import getpass
 import os
 import platform
-import re
 from dataclasses import dataclass, field
-from enum import Enum
 from pathlib import Path
 
-from pip import __version__ as pip__version__
-from pip._internal.operations.freeze import freeze
+RESET = "\u001b[0m"
+BOLD = "\u001b[1m"
+MAIN = BOLD + "\u001b[034m"
 
 
 @dataclass
@@ -18,7 +18,13 @@ class Module:
     def output(self):
         if self.title is None:
             return self.value
-        return f"{self.title}: {self.value}"
+        return f"{MAIN}{self.title}:{RESET} {self.value}"
+
+
+@dataclass
+class Space(Module):
+    def __post_init__(self):
+        self.value = " "
 
 
 @dataclass
@@ -26,19 +32,20 @@ class UserHost(Module):
     def __post_init__(self):
         user = getpass.getuser()
         host = os.uname().nodename
-        self.value = f"{user}@{host}"
+        self.userhost = f"{user}@{host}"
+        self.value = MAIN + self.userhost + RESET
 
     def __len__(self):
-        return len(self.value)
+        return len(self.userhost)
 
 
 @dataclass
 class SplitLine(Module):
-    userhost: UserHost
     char: str = field(init=False, default="-")
 
     def __post_init__(self):
-        self.value = len(self.userhost) * self.char
+        userhost = UserHost()
+        self.value = len(userhost) * self.char
 
 
 @dataclass
@@ -51,15 +58,19 @@ class PythonVersion(Module):
 @dataclass
 class PIPVersion(Module):
     def __post_init__(self):
+        from pip import __version__
+
         self.title = "PIP Version"
-        self.value = pip__version__
+        self.value = __version__
 
 
 @dataclass
 class PIPPackages(Module):
     def __post_init__(self):
+        from pip._internal.operations.freeze import freeze
+
         self.title = "PIP Packages"
-        self.value = sum(1 for p in freeze(local_only=True))
+        self.value = len(list(freeze(local_only=True)))
 
 
 @dataclass
@@ -80,22 +91,19 @@ class Compiler(Module):
 class Kernel(Module):
     def __post_init__(self):
         self.title = self.__class__.__name__
-        uname = os.uname()
-        self.value = f"{uname.sysname}-{uname.release}"
+        self.value = f"{os.uname().sysname}-{os.uname().release}"
 
 
 @dataclass
 class OperationSystem(Module):
     def __post_init__(self):
         self.title = "OS"
-        uname = os.uname()
+
         if os.name == "posix":
-            self.value = self.posix_os_name() + " " + uname.machine
+            self.value = self.posix_os_name()
 
     def posix_os_name(self):
-        pretty_name = re.compile('^PRETTY_NAME="([^"]+)"$')
-        for p in Path("/").glob("etc/*release"):
-            with p.open() as file:
-                match = [pretty_name.match(l) for l in file.readlines()][0]
-            if match:
-                return match.group(1) if match.group(1) != "" or None else " "
+        path = Path("/etc/os-release")
+        with open(path) as file:
+            reader = csv.reader(file, delimiter="=")
+            return dict(reader)["PRETTY_NAME"] + " " + os.uname().machine
