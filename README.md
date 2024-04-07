@@ -3,6 +3,8 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/tinyfetch)
 ![PyPI - Version](https://img.shields.io/pypi/v/tinyfetch)
 ![GitHub License](https://img.shields.io/github/license/beucismis/tinyfetch)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/beucismis/tinyfetch/test.yml?label=test)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/beucismis/tinyfetch/publish.yml?label=publish)
 
 Python and system information command-line fetch tool.
 
@@ -26,7 +28,7 @@ Output like this!
 ## Installation
 
 ```console
-pip install tinyfetch
+pip install -U tinyfetch
 ```
 
 ## License
