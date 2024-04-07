@@ -9,7 +9,9 @@ description = "Python and system information command-line fetch tool"
 readme = "README.md"
 requires-python = ">=3.8"
 license = "MIT"
-keywords = []
+keywords = [
+  "fetch", "python", "command-line", "tool", "information", "fetcher"
+]
 authors = [
   { name = "beucismis", email = "beucismis@tutamail.com" },
 ]
@@ -32,6 +34,7 @@ Issues = "https://github.com/beucismis/tinyfetch/issues"
 Documentation = "https://github.com/beucismis/tinyfetch#readme"
 
 [project.scripts]
+tfetch = "tinyfetch.cli:main"
 tinyfetch = "tinyfetch.cli:main"
 
 [tool.hatch.version]
