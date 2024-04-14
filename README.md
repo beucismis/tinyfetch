@@ -31,6 +31,23 @@ Output like this!
 pip install -U tinyfetch
 ```
 
+## Documentation
+
+```console
+$ tinyfetch --help
+
+usage: tinyfetch [-h] [--title-color {red,green,yellow,blue,magenta,cyan}] [--no-color] [--version]
+
+Python and system information command-line fetch tool
+
+options:
+  -h, --help            show this help message and exit
+  --title-color {red,green,yellow,blue,magenta,cyan}
+                        set default the title color
+  --no-color            turn off all colors and disables
+  --version             show program's version number and exit
+```
+
 ## License
 
 `tinyfetch` is distributed under the terms of the [MIT](LICENSE.txt) license.
