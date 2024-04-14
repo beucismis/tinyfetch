@@ -25,8 +25,11 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Install Tinyfeth
-      run: pip install --upgrade tinyfetch
+    - name: Install Hatch
+      run: pip install --upgrade hatch
 
-    - name: Run Tinyfeth
-      run: tinyfetch
+    - name: Run test
+      run: hatch run test
+
+    - name: Install and Run Tinyfeth
+      run: pip install -U tinyfetch && tinyfetch
