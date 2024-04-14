@@ -31,7 +31,7 @@ dependencies = []
 [project.urls]
 Source = "https://github.com/beucismis/tinyfetch"
 Issues = "https://github.com/beucismis/tinyfetch/issues"
-Documentation = "https://github.com/beucismis/tinyfetch#readme"
+Documentation = "https://github.com/beucismis/tinyfetch?tab=readme-ov-file#documentation"
 
 [project.scripts]
 tfetch = "tinyfetch.cli:main"
