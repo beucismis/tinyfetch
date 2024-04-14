@@ -3,28 +3,42 @@ import getpass
 import os
 import platform
 from dataclasses import dataclass, field
+from enum import Enum
 from pathlib import Path
+from typing import Union
 
-RESET = "\u001b[0m"
 BOLD = "\u001b[1m"
-MAIN = BOLD + "\u001b[034m"
+RESET = "\u001b[0m"
+
+
+class Color(Enum):
+    red = "\u001b[31m"
+    green = "\u001b[32m"
+    yellow = "\u001b[33m"
+    blue = "\u001b[34m"
+    magenta = "\u001b[35m"
+    cyan = "\u001b[36m"
 
 
 @dataclass
 class Module:
-    title: str = field(init=False, default=None)
+    title: Union[str, None] = field(init=False, default=None)
     value: str = field(init=False)
+    title_color: str = field(default=Color["blue"])
+    no_color: bool = field(default=False)
 
-    def output(self):
+    def output(self) -> str:
         if self.title is None:
             return self.value
-        return f"{MAIN}{self.title}:{RESET} {self.value}"
+        if self.no_color:
+            return f"{self.title}: {self.value}"
+        return f"{BOLD}{self.title_color.value}{self.title}:{RESET} {self.value}"
 
 
 @dataclass
 class Space(Module):
     def __post_init__(self):
-        self.value = " "
+        self.value = ""
 
 
 @dataclass
@@ -33,9 +47,13 @@ class UserHost(Module):
         user = getpass.getuser()
         host = os.uname().nodename
         self.userhost = f"{user}@{host}"
-        self.value = MAIN + self.userhost + RESET
 
-    def __len__(self):
+        if self.no_color:
+            self.value = self.userhost
+        else:
+            self.value = f"{BOLD}{self.title_color.value}{self.userhost}{RESET}"
+
+    def __len__(self) -> int:
         return len(self.userhost)
 
 
@@ -102,7 +120,7 @@ class OperationSystem(Module):
         if os.name == "posix":
             self.value = self.posix_os_name()
 
-    def posix_os_name(self):
+    def posix_os_name(self) -> str:
         path = Path("/etc/os-release")
         with open(path) as file:
             reader = csv.reader(file, delimiter="=")
