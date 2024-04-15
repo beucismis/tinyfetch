@@ -1,3 +1,3 @@
 from tinyfetch.module import Color, Module
 
-__version__ = "0.0.4"
+__version__ = "0.0.5"

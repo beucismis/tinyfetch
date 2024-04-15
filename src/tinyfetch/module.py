@@ -1,3 +1,4 @@
+import sys
 import csv
 import getpass
 import os
@@ -116,11 +117,31 @@ class Kernel(Module):
 class OperationSystem(Module):
     def __post_init__(self):
         self.title = "OS"
+        platform_type = self.get_platform()
 
-        if os.name == "posix":
-            self.value = self.posix_os_name()
+        if platform_type == "linux":
+            self.value = self.get_linux_os_name()
+        if platform_type == "android":
+            self.value = "Android"
+        if platform_type == "unknown":
+            self.value = "Unkown"
 
-    def posix_os_name(self) -> str:
+    def get_platform(self):
+        if "P4A_BOOTSTRAP" in os.environ:
+            return "android"
+        if "ANDROID_ARGUMENT" in os.environ:
+            return "android"
+        if sys.platform in ("win32", "cygwin"):
+            return "win"
+        if sys.platform == "darwin":
+            return "macosx"
+        if sys.platform.startswith("linux"):
+            return 'linux'
+        if sys.platform.startswith("freebsd"):
+            return "linux"
+        return "unknown"
+
+    def get_linux_os_name(self) -> str:
         path = Path("/etc/os-release")
         with open(path) as file:
             reader = csv.reader(file, delimiter="=")
