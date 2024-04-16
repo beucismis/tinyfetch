@@ -11,7 +11,7 @@ def main() -> None:
     )
     parser.add_argument(
         "--title-color",
-        default="blue",
+        default="white",
         choices=list(c.name for c in module.Color),
         help="set default the title color",
     )

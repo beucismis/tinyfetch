@@ -19,13 +19,26 @@ class Color(Enum):
     blue = "\u001b[34m"
     magenta = "\u001b[35m"
     cyan = "\u001b[36m"
+    white = "\u001b[37m"
+
+
+ASCII_LOGO = [
+    "            ",
+    "     ___    ",
+    "    (.. \   ",
+    "    (<> |   ",
+    "   //  \ \  ",
+    "  ( |  | /| ",
+    " _/\ __)/_) ",
+    " \/-____\/  ",
+]
 
 
 @dataclass
 class Module:
     title: Union[str, None] = field(init=False, default=None)
     value: str = field(init=False)
-    title_color: str = field(default=Color["blue"])
+    title_color: str = field(default=Color["white"])
     no_color: bool = field(default=False)
 
     def output(self) -> str:
@@ -33,13 +46,15 @@ class Module:
             return self.value
         if self.no_color:
             return f"{self.title}: {self.value}"
-        return f"{BOLD}{self.title_color.value}{self.title}:{RESET} {self.value}"
+        return f"{BOLD}{self.title_color.value}{self.title}{RESET}: {self.value}"
 
 
 @dataclass
 class Space(Module):
+    amount: int = field(default=1)
+
     def __post_init__(self):
-        self.value = ""
+        self.value = " " * self.amount
 
 
 @dataclass
@@ -136,7 +151,7 @@ class OperationSystem(Module):
         if sys.platform == "darwin":
             return "macosx"
         if sys.platform.startswith("linux"):
-            return 'linux'
+            return "linux"
         if sys.platform.startswith("freebsd"):
             return "linux"
         return "unknown"
