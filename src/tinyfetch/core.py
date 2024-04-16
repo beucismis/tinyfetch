@@ -26,4 +26,4 @@ def render(title_color: str, no_color: bool = False) -> None:
         output = module_obj.__call__(
             title_color=Color[title_color], no_color=no_color
         ).output()
-        print("{} {}".format(ascii_logo_line, output))    
+        print("{} {}".format(ascii_logo_line, output))
