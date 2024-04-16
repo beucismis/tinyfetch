@@ -12,6 +12,6 @@ class Test:
 
         assert module.title == "Title"
         assert module.value == "Value"
-        assert module.title_color == tinyfetch.Color.blue
+        assert module.title_color == tinyfetch.Color.white
         assert module.no_color == True
         assert module.output() == "Title: Value"
