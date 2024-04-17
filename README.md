@@ -8,41 +8,41 @@
 
 Python and system information command-line fetch tool.
 
-```console
+```
 $ tinyfetch
 
-beucismis@thinkpad
-------------------
-Python Version: 3.11.2
-PIP Version: 24.0
-PIP Packages: 8
-Implementation: CPython
-Compiler: GCC 12.2.0
+     ___     beucismis@thinkpad-devuan
+    (.. \    -------------------------
+    (<> |    Python Version: 3.11.2
+   //  \ \   PIP Version: 24.0
+  ( |  | /|  PIP Packages: 341
+ _/\ __)/_)  Implementation: CPython
+ \/-____\/   Compiler: GCC 12.2.0
 
-Kernel: Linux-6.1.0-18-amd64
-OS: Devuan GNU/Linux 5 (daedalus) x86_64
+             Kernel: Linux-6.1.0-18-amd64
+             OS: Devuan GNU/Linux 5 (daedalus) x86_64
 ```
 
-Output like this!
+Output like this! Also, tux ASCII logo is inspired by [fastfetch](https://github.com/fastfetch-cli/fastfetch). Thanks!
 
 ## Installation
 
-```console
+```
 pip install -U tinyfetch
 ```
 
 ## Documentation
 
-```console
+```
 $ tinyfetch --help
 
-usage: tinyfetch [-h] [--title-color {red,green,yellow,blue,magenta,cyan}] [--no-color] [--version]
+usage: tinyfetch [-h] [--title-color {red,green,yellow,blue,magenta,cyan,white}] [--no-color] [--version]
 
 Python and system information command-line fetch tool
 
 options:
   -h, --help            show this help message and exit
-  --title-color {red,green,yellow,blue,magenta,cyan}
+  --title-color {red,green,yellow,blue,magenta,cyan,white}
                         set default the title color
   --no-color            turn off all colors and disables
   --version             show program's version number and exit

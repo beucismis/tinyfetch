@@ -1,5 +1,5 @@
 from tinyfetch import module
-from tinyfetch.module import Color, ASCII_LOGO
+from tinyfetch.module import ASCII_LOGO, Color
 
 modules_list = [
     module.Space,

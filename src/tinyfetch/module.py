@@ -1,8 +1,8 @@
-import sys
 import csv
 import getpass
 import os
 import platform
+import sys
 from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
@@ -10,18 +10,6 @@ from typing import Union
 
 BOLD = "\u001b[1m"
 RESET = "\u001b[0m"
-
-
-class Color(Enum):
-    red = "\u001b[31m"
-    green = "\u001b[32m"
-    yellow = "\u001b[33m"
-    blue = "\u001b[34m"
-    magenta = "\u001b[35m"
-    cyan = "\u001b[36m"
-    white = "\u001b[37m"
-
-
 ASCII_LOGO = [
     "            ",
     "     ___    ",
@@ -32,6 +20,16 @@ ASCII_LOGO = [
     " _/\ __)/_) ",
     " \/-____\/  ",
 ]
+
+
+class Color(Enum):
+    red = "\u001b[31m"
+    green = "\u001b[32m"
+    yellow = "\u001b[33m"
+    blue = "\u001b[34m"
+    magenta = "\u001b[35m"
+    cyan = "\u001b[36m"
+    white = "\u001b[37m"
 
 
 @dataclass
