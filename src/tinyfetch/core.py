@@ -17,7 +17,7 @@ modules_list = [
 ]
 
 
-def render(title_color: str, no_color: bool = False) -> None:
+def render(title_color: str, no_color: bool = False, no_logo: bool = False) -> None:
     if len(ASCII_LOGO) < len(modules_list):
         for _ in range(len(modules_list) - len(ASCII_LOGO)):
             ASCII_LOGO.append(module.Space(amount=len(ASCII_LOGO[0])).output())
@@ -26,4 +26,8 @@ def render(title_color: str, no_color: bool = False) -> None:
         output = module_obj.__call__(
             title_color=Color[title_color], no_color=no_color
         ).output()
-        print("{} {}".format(ascii_logo_line, output))
+
+        if no_logo:
+            print(output)
+        else:
+            print("{} {}".format(ascii_logo_line, output))

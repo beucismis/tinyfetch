@@ -46,6 +46,16 @@ class Module:
             return f"{self.title}: {self.value}"
         return f"{BOLD}{self.title_color.value}{self.title}{RESET}: {self.value}"
 
+    def to_dict(self) -> dict:
+        if self.__class__ == Space:
+            return None
+        if self.__class__ == SplitLine:
+            return None
+        if self.__class__ == UserHost:
+            self.title = "User & Host"
+
+        return {self.title: self.value}
+
 
 @dataclass
 class Space(Module):
