@@ -4,7 +4,6 @@ from json import dumps as json_dumps
 import tinyfetch
 from tinyfetch import core, module
 
-
 parser = argparse.ArgumentParser(
     prog="tinyfetch",
     description="Python and system information command-line fetch tool",
@@ -49,7 +48,9 @@ def main(args=None) -> None:
             output.append(dict_obj)
         return json_dumps(output)
 
-    core.render(title_color=args.title_color, no_color=args.no_color, no_logo=args.no_logo)
+    core.render(
+        title_color=args.title_color, no_color=args.no_color, no_logo=args.no_logo
+    )
 
 
 if __name__ == "__main__":
