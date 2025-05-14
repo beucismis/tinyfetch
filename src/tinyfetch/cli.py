@@ -4,6 +4,7 @@ from json import dumps as json_dumps
 import tinyfetch
 from tinyfetch import core, module
 
+
 parser = argparse.ArgumentParser(
     prog="tinyfetch",
     description="Python and system information command-line fetch tool",

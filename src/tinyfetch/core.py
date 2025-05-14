@@ -1,6 +1,7 @@
 from tinyfetch import module
 from tinyfetch.module import ASCII_LOGO, Color
 
+
 modules_list = [
     module.Space,
     module.UserHost,
