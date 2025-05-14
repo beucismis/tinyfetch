@@ -8,17 +8,18 @@ from enum import Enum
 from pathlib import Path
 from typing import Union
 
+
 BOLD = "\u001b[1m"
 RESET = "\u001b[0m"
 ASCII_LOGO = [
-    "            ",
-    "     ___    ",
-    "    (.. \   ",
-    "    (<> |   ",
-    "   //  \ \  ",
-    "  ( |  | /| ",
-    " _/\ __)/_) ",
-    " \/-____\/  ",
+    r"            ",
+    r"     ___    ",
+    r"    (.. \   ",
+    r"    (<> |   ",
+    r"   //  \ \  ",
+    r"  ( |  | /| ",
+    r" _/\ __)/_) ",
+    r" \/-____\/  ",
 ]
 
 
@@ -139,7 +140,7 @@ class Kernel(Module):
 @dataclass
 class OperationSystem(Module):
     def __post_init__(self):
-        self.title = "OS"
+        self.title = "Operation System"
         platform_type = self.get_platform()
 
         if platform_type == "linux":
