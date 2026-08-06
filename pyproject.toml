@@ -7,8 +7,8 @@ name = "tinyfetch"
 dynamic = ["version"]
 description = "Python and system information command-line fetch tool"
 readme = "README.md"
-requires-python = ">=3.8"
-license = "MIT"
+requires-python = ">=3.10"
+license = "GPL-3.0"
 keywords = [
   "fetch", "python", "command-line", "tool", "information", "fetcher"
 ]
@@ -18,11 +18,11 @@ authors = [
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python",
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
@@ -31,7 +31,6 @@ dependencies = []
 [project.urls]
 Source = "https://github.com/beucismis/tinyfetch"
 Issues = "https://github.com/beucismis/tinyfetch/issues"
-Documentation = "https://github.com/beucismis/tinyfetch?tab=readme-ov-file#documentation"
 
 [project.scripts]
 tfetch = "tinyfetch.cli:main"
