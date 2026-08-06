@@ -3,16 +3,14 @@
 Python and system information command-line fetch tool.
 
 ```
-tinyfetch
-
      ___     beucismis@computer
     (.. \    ------------------
     (<> |    Python Version: 3.14.6
-   //  \ \   PIP Version: 26.1.2
-  ( |  | /|  PIP Packages: 7
+   //  \ \   PIP Version: 26.2.1
+  ( |  | /|  PIP Packages: 220
  _/\ __)/_)  Implementation: CPython
  \/-____\/   Compiler: GCC 16.1.1 20260430
-
+              
              Kernel: Linux-7.1.6-1-cachyos
              Operation System: CachyOS x86_64
 ```
