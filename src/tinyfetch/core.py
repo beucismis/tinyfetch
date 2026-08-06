@@ -1,7 +1,6 @@
 from tinyfetch import module
 from tinyfetch.module import ASCII_LOGO, Color
 
-
 modules_list = [
     module.Space,
     module.UserHost,
@@ -24,11 +23,9 @@ def render(title_color: str, no_color: bool = False, no_logo: bool = False) -> N
             ASCII_LOGO.append(module.Space(amount=len(ASCII_LOGO[0])).output())
 
     for ascii_logo_line, module_obj in zip(ASCII_LOGO, modules_list):
-        output = module_obj.__call__(
-            title_color=Color[title_color], no_color=no_color
-        ).output()
+        output = module_obj.__call__(title_color=Color[title_color], no_color=no_color).output()
 
         if no_logo:
             print(output)
         else:
-            print("{} {}".format(ascii_logo_line, output))
+            print(f"{ascii_logo_line} {output}")

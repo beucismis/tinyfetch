@@ -6,8 +6,6 @@ import sys
 from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
-from typing import Union
-
 
 BOLD = "\u001b[1m"
 RESET = "\u001b[0m"
@@ -35,7 +33,7 @@ class Color(Enum):
 
 @dataclass
 class Module:
-    title: Union[str, None] = field(init=False, default=None)
+    title: str | None = field(init=False, default=None)
     value: str = field(init=False)
     title_color: str = field(default=Color["white"])
     no_color: bool = field(default=False)
