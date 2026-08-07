@@ -3,22 +3,22 @@
 Python and system information command-line fetch tool.
 
 ```
-     ___     beucismis@computer
-    (.. \    ------------------
+     ___     void@vm
+    (.. \    -------
     (<> |    Python Version: 3.14.6
-   //  \ \   PIP Version: 26.2.1
-  ( |  | /|  PIP Packages: 220
+   //  \ \   PIP Version: 26.2
+  ( |  | /|  PIP Packages: 2
  _/\ __)/_)  Implementation: CPython
- \/-____\/   Compiler: GCC 16.1.1 20260430
+ \/-____\/   Compiler: GCC 14.2.1 20250405
               
-             Kernel: Linux-7.1.6-1-cachyos
-             Operation System: CachyOS x86_64
+             Kernel: Linux-6.12.11_1
+             Operation System: Void Linux
 ```
 
 ## Installation
 
 ```
-pip install -U tinyfetch
+pip install tinyfetch
 ```
 
 ## Documentation
